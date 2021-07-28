@@ -6,19 +6,19 @@
     "license": "MIT",
     "require": {
         "php": "^7.3|^8.0",
-        "../docker-laravel/vendor/fideloper/proxy": "^4.4",
-        "../docker-laravel/vendor/fruitcake/laravel-cors": "^2.0",
-        "../docker-laravel/vendor/guzzlehttp/guzzle": "^7.0.1",
-        "../docker-laravel/vendor/laravel/framework": "^8.40",
-        "../docker-laravel/vendor/laravel/tinker": "^2.5"
+        "fideloper/proxy": "^4.4",
+        "fruitcake/laravel-cors": "^2.0",
+        "guzzlehttp/guzzle": "^7.0.1",
+        "laravel/framework": "^8.40",
+        "laravel/tinker": "^2.5"
     },
     "require-dev": {
-        "../docker-laravel/vendor/facade/ignition": "^2.5",
-        "../docker-laravel/vendor/fakerphp/faker": "^1.9.1",
-        "../docker-laravel/vendor/laravel/sail": "^1.0.1",
-        "../docker-laravel/vendor/mockery/mockery": "^1.4.2",
-        "../docker-laravel/vendor/nunomaduro/collision": "^5.0",
-        "../docker-laravel/vendor/phpunit/phpunit": "^9.3.3"
+        "facade/ignition": "^2.5",
+        "fakerphp/faker": "^1.9.1",
+        "laravel/sail": "^1.0.1",
+        "mockery/mockery": "^1.4.2",
+        "nunomaduro/collision": "^5.0",
+        "phpunit/phpunit": "^9.3.3"
     },
     "autoload": {
         "psr-4": {
