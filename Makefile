@@ -30,10 +30,8 @@ deploy:
 
 lint:
 	composer phpcs
-
 lint-fix:
 	composer phpcbf
-
 compose:
 	docker-compose up
 
