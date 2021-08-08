@@ -43,7 +43,7 @@ jobs:
           DB_DATABASE: test
 
         run: |
-          ls -la
+          ls
           php --version
           composer --version
           make setup
