@@ -9,18 +9,6 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
-    services:
-      postgres:
-        image: postgres:10.8
-        env:
-          POSTGRES_USER: test
-          POSTGRES_PASSWORD: test
-          POSTGRES_DB: test
-          POSTGRES_PORT: 5432
-        ports:
-          - 5432:5432/tcp
-        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
-
     steps:
 
       - name: Setup PHP with composer v2
@@ -34,14 +22,6 @@ jobs:
         uses: actions/checkout@v1
 
       - name: Run a multi-line script
-        env:
-          DB_CONNECTION: pgsql
-          DB_HOST: localhost
-          DB_PORT: 5432
-          DB_USERNAME: test
-          DB_PASSWORD: test
-          DB_DATABASE: test
-
         run: |
           ls
           php --version
