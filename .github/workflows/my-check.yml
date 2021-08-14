@@ -48,3 +48,4 @@ jobs:
           composer --version
           make setup
           make lint
+          make test
