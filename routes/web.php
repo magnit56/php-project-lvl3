@@ -34,7 +34,7 @@ Route::get('/urls', function (Request $request) {
     $sites = DB::table('urls')->paginate(10);
     return view('urls', ['sites' => $sites]);
 });
-Route::post('/urls', function (Request $request) {
+Route::post('/', function (Request $request) {
     try {
         $request->validate([
             'url.name' => 'required|url|max:255'
