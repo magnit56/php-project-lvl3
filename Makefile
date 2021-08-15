@@ -3,7 +3,11 @@ start:
 
 setup:
 	composer install
+	cp -n .env.example .env|| true
+	php artisan key:gen --ansi
+	touch database/database.sqlite
 	php artisan migrate
+	php artisan db:seed
 	npm i
 	npm run dev
 
@@ -23,7 +27,7 @@ test:
 	php artisan test
 
 deploy:
-	git push heroku
+	git push heroku main
 
 lint:
 	composer phpcs
