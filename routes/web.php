@@ -17,7 +17,7 @@ use Carbon\Carbon;
 
 Route::get('/', function (Request $request) {
     return view('index');
-});
+})->name('urls.create');
 Route::get('/urls/{id}', function (Request $request, $id) {
     $site = DB::table('urls')
         ->where('id', $id)
@@ -29,11 +29,11 @@ Route::get('/urls/{id}', function (Request $request, $id) {
         'createdAt' => $site->created_at,
         'updatedAt' => $site->updated_at,
     ]);
-});
+})->name('urls.show');
 Route::get('/urls', function (Request $request) {
     $sites = DB::table('urls')->paginate(10);
     return view('urls', ['sites' => $sites]);
-});
+})->name('urls.index');
 Route::post('/', function (Request $request) {
     try {
         $request->validate([
@@ -73,4 +73,4 @@ Route::post('/', function (Request $request) {
 
     flash('Сайт успешно добавлен')->success();
     return redirect("/urls/{$id}");
-});
+})->name('urls.store');
