@@ -1,9 +1,9 @@
 name: php-project-lvl3
 on:
   push:
-    branches: [ main ]
+    branches: [ main, develop ]
   pull_request:
-    branches: [ main ]
+    branches: [ main, develop ]
 
 jobs:
   build:
@@ -28,3 +28,4 @@ jobs:
           composer --version
           make setup
           make lint
+          make test
