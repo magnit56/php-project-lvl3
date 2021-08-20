@@ -4,8 +4,8 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 
-Route::get('/', function (Request $request) {
-    return view('index');
+Route::get('/', function (Request $request, $name = '') {
+    return view('index', ['name' => $name]);
 })->name('urls.create');
 
 Route::get('/urls/{id}', function (Request $request, $id) {
@@ -34,21 +34,25 @@ Route::get('/urls', function (Request $request) {
 })->name('urls.index');
 
 Route::post('/', function (Request $request) {
-//    Изменить валидацию
-//    Обрезать url
-    try {
-        $request->validate([
-            'url.name' => 'required|url|max:255'
-        ]);
-    } catch (Exception) {
+    $validator = Validator::make($request->all(), [
+        'url.name' => 'required|url|max:255',
+    ]);
+    if ($validator->fails()) {
         $url = $request->input('url');
         $name = $url['name'];
 
         flash('Некорректный URL')->error();
-        return view('index', ['name' => $name]);
+        return redirect()
+            ->route('urls.create', ['name' => $name])
+            ->withErrors($validator)
+            ->withInput();
     }
+
     $url = $request->input('url');
-    $name = $url['name'];
+    $link = $url['name'];
+    $scheme = parse_url($link, PHP_URL_SCHEME);
+    $host = parse_url($link, PHP_URL_HOST);
+    $name = "{$scheme}://{$host}";
 
     $user = DB::table('urls')->where('name', $name)->get();
     if ($user->count() > 0) {
