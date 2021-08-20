@@ -17,10 +17,7 @@ Route::get('/urls/{id}', function (Request $request, $id) {
         ->get();
 
     return view('url', [
-        'id' => $site->id,
-        'name' =>$site->name,
-        'createdAt' => $site->created_at,
-        'updatedAt' => $site->updated_at,
+        'site' => $site,
         'checks' => $checks,
     ]);
 })->name('urls.show');

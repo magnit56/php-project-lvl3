@@ -1,35 +1,35 @@
 @extends('app')
 
-@section('title', "Анализатор страниц - сайт $name")
+@section('title', "Анализатор страниц - сайт $site->name")
 
 @section('content')
     <main class="bg-light py-5">
         <div class="container">
-            <h1>Сайт {{ $name }}</h1>
+            <h1>Сайт {{ $site->name }}</h1>
             <div class="table-responsive">
                 <table class="table table-bordered table-hover text-nowrap">
                     <tbody>
                     <tr>
                         <td>ID</td>
-                        <td>{{ $id }}</td>
+                        <td>{{ $site->id }}</td>
                     </tr>
                     <tr>
                         <td>URL</td>
-                        <td><a href="{{ $name }}">{{ $name }}</td>
+                        <td><a href="{{ $site->name }}">{{ $site->name }}</td>
                     </tr>
                     <tr>
                         <td>Дата добавления сайта</td>
-                        <td>{{ $createdAt }}</td>
+                        <td>{{ $site->created_at }}</td>
                     </tr>
                     <tr>
                         <td>Дата обновления информации о сайте</td>
-                        <td>{{ $updatedAt }}</td>
+                        <td>{{ $site->updated_at }}</td>
                     </tr>
                     </tbody>
                 </table>
             </div>
             <h2>Проверки</h2>
-            <form action="{{ $id }}/checks" method="POST" class="d-flex justify-content-left">
+            <form action="{{ $site->id }}/checks" method="POST" class="d-flex justify-content-left">
                 {{ csrf_field() }}
                 <input type="hidden">
                 <button type="submit" class="btn btn-primary">Запустить проверку</button>
