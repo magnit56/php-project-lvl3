@@ -10,12 +10,11 @@ use Illuminate\Support\Facades\DB;
 class UrlTest extends TestCase
 {
     use RefreshDatabase;
-    protected $id = 1;
+    protected $id;
 
     protected function setUp(): void
     {
         parent::setUp();
-        DB::table('urls')->truncate();
         $name = 'https://google.com';
         DB::table('urls')->insert(
             [
