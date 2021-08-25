@@ -39,19 +39,19 @@
                     <tbody>
                     <tr>
                         <th>ID</th>
-                        {{--                        <th>Код ответа</th>--}}
-                        {{--                        <th>h1</th>--}}
-                        {{--                        <th>keywords</th>--}}
-                        {{--                        <th>description</th>--}}
+                        <th>Код ответа</th>
+{{--                        <th>h1</th>--}}
+{{--                        <th>keywords</th>--}}
+{{--                        <th>description</th>--}}
                         <th>Дата создания</th>
                     </tr>
                     @foreach($checks as $check)
                         <tr>
                             <td>{{ $check->id }}</td>
-                            {{--                            <td>{{ $check->status_code }}</td>--}}
-                            {{--                            <td>{{ $check->h1 }}</td>--}}
-                            {{--                            <td>{{ $check->keywords }}</td>--}}
-                            {{--                            <td>{{ $check->description }}</td>--}}
+                            <td>{{ $check->status_code }}</td>
+{{--                            <td>{{ $check->h1 }}</td>--}}
+{{--                            <td>{{ $check->keywords }}</td>--}}
+{{--                            <td>{{ $check->description }}</td>--}}
                             <td>{{ $check->created_at }}</td>
                         </tr>
                     @endforeach
