@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use App\Jobs\StoreSeoInformation;
 
 Route::get('/', function (Request $request, $name = '') {
     return view('index', ['name' => $name]);
@@ -81,19 +82,10 @@ Route::post('/', function (Request $request) {
 })->name('urls.store');
 
 Route::post('/urls/{id}/checks', function (Request $request, $id) {
-//    Обработать ошибку неуспешной проверки
-    DB::table('url_checks')->insert(
-        [
-            'url_id' => $id,
-            'status_code' => 200,
-            'h1' => 'h1',
-            'keywords' => 'keyword',
-            'description' => 'description',
-            'created_at' => Carbon::now(),
-            'updated_at' => Carbon::now(),
-        ]
-    );
-    flash('Какой-то косяк')->error();
-    flash('Страница успешно проверена')->success();
+    $site = DB::table('urls')
+        ->where('id', $id)
+        ->first();
+    StoreSeoInformation::dispatch($site->id, $site->name);
+    flash('Страница добавлена в очередь на проверку')->success();
     return redirect("/urls/{$id}");
 })->name('url_checks.store');
