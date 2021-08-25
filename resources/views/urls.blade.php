@@ -22,7 +22,7 @@
                         <th scope="row">{{  $site->id  }}</th>
                         <td><a href="/urls/{{  $site->id  }}">{{  $site->name  }}</a></td>
                         <td>{{  $checks[$site->id]->created_at ?? ''  }}</td>
-{{--                        <td>{{  $checks[$site->id]->status_code ?? ''  }}</td>--}}
+                        <td>{{  $checks[$site->id]->status_code ?? ''  }}</td>
                     </tr>
                     @endforeach
                     </tbody>
