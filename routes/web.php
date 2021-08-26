@@ -46,8 +46,9 @@ Route::post('/', function (Request $request) {
         $name = $url['name'];
 
         flash('Некорректный URL')->error();
-        return redirect()
-            ->route('urls.create', ['name' => $name])
+        return response()
+            ->redirectToRoute('urls.create', ['name' => $name])
+            ->setStatusCode(405)
             ->withErrors($validator)
             ->withInput();
     }
