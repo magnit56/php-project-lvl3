@@ -13,6 +13,9 @@ Route::get('/urls/{id}', function (Request $request, $id) {
     $site = DB::table('urls')
         ->where('id', $id)
         ->first();
+    if (!$site) {
+        abort(404);
+    }
     $checks = DB::table('url_checks')
         ->where('url_id', $id)
         ->get();
@@ -81,6 +84,9 @@ Route::post('/urls/{id}/checks', function (Request $request, $id) {
     $site = DB::table('urls')
         ->where('id', $id)
         ->first();
+    if (!$site) {
+        abort(404);
+    }
     StoreSeoInformation::dispatch($site->id, $site->name);
     flash('Страница добавлена в очередь на проверку')->success();
     return redirect("/urls/{$id}");
