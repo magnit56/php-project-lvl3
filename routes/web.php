@@ -13,6 +13,9 @@ Route::get('/urls/{id}', function (Request $request, $id) {
     $site = DB::table('urls')
         ->where('id', $id)
         ->first();
+    if (!$site) {
+        abort(404);
+    }
     $checks = DB::table('url_checks')
         ->where('url_id', $id)
         ->get();
@@ -65,17 +68,13 @@ Route::post('/', function (Request $request) {
         return redirect("urls/{$id}");
     }
 
-    DB::table('urls')->insert(
+    $id = DB::table('urls')->insertGetId(
         [
             'name' => $name,
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
         ]
     );
-
-    $id = DB::table('urls')
-        ->where('name', $name)
-        ->first()->id;
 
     flash('Сайт успешно добавлен')->success();
     return redirect("/urls/{$id}");
@@ -85,6 +84,9 @@ Route::post('/urls/{id}/checks', function (Request $request, $id) {
     $site = DB::table('urls')
         ->where('id', $id)
         ->first();
+    if (!$site) {
+        abort(404);
+    }
     StoreSeoInformation::dispatch($site->id, $site->name);
     flash('Страница добавлена в очередь на проверку')->success();
     return redirect("/urls/{$id}");
