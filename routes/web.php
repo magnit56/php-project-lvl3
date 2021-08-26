@@ -65,17 +65,13 @@ Route::post('/', function (Request $request) {
         return redirect("urls/{$id}");
     }
 
-    DB::table('urls')->insert(
+    $id = DB::table('urls')->insertGetId(
         [
             'name' => $name,
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
         ]
     );
-
-    $id = DB::table('urls')
-        ->where('name', $name)
-        ->first()->id;
 
     flash('Сайт успешно добавлен')->success();
     return redirect("/urls/{$id}");
