@@ -48,6 +48,14 @@ class UrlTest extends TestCase
         $this->assertDatabaseHas('urls', $data);
     }
 
+    public function testIncorrectStore()
+    {
+        $data = ['name' => 'ya.ru'];
+        $request = ['url' => $data];
+        $response = $this->post(route('urls.store'), $request);
+        $response->assertStatus(422);
+    }
+
     public function testShow()
     {
         $response = $this->get(route('urls.show', $this->id));
