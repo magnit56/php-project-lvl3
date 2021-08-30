@@ -39,7 +39,7 @@ class UrlCheckTest extends TestCase
 
     public function testStoreSeoInformation()
     {
-        $html = file_get_contents(realpath( $this->fixture));
+        $html = file_get_contents(realpath($this->fixture));
 
         Http::fake([
             "{$this->name}" => Http::response($html, 200),
