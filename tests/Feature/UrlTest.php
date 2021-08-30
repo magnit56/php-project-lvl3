@@ -40,12 +40,12 @@ class UrlTest extends TestCase
 
     public function testStore()
     {
-        $request = ['name' => 'https://ya.ru'];
-//        $request = ['url' => $data];
+        $data = ['name' => 'https://ya.ru'];
+        $request = ['url' => $data];
         $response = $this->post(route('urls.store'), $request);
         $response->assertSessionHasNoErrors();
         $response->assertRedirect();
-        $this->assertDatabaseHas('urls', $request);
+        $this->assertDatabaseHas('urls', $data);
     }
 
     public function testEmptyStore()
@@ -53,8 +53,7 @@ class UrlTest extends TestCase
         $data = ['name' => ''];
         $request = ['url' => $data];
         $response = $this->post(route('urls.store'), $request);
-        $response->assertSessionHasErrors('name');
-//        $response->assertSessionHasNoErrors();
+        $response->assertSessionHasErrors('url.name');
         $response->assertRedirect();
     }
 

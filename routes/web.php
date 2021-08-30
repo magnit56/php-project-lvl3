@@ -38,23 +38,21 @@ Route::get('/urls', function (Request $request) {
 })->name('urls.index');
 
 Route::post('/urls', function (Request $request) {
+    $url = $request->input('url');
+    $link = $url['name'];
+
     $validator = Validator::make($request->all(), [
-        'name' => 'required|url|max:255',
+        'url' => 'array',
+        'url.name' => 'required|url|max:255'
     ]);
     if ($validator->fails()) {
-//        $name = $request->input('url');
-//        $name = $url['name'];
-
         flash('Некорректный URL')->error();
         return response()
             ->redirectToRoute('urls.create')
-//            ->setStatusCode(422)
             ->withErrors($validator)
             ->withInput();
     }
 
-    $link = $request->input('name');
-//    $link = $url['name'];
     $scheme = parse_url($link, PHP_URL_SCHEME);
     $host = parse_url($link, PHP_URL_HOST);
     $name = "{$scheme}://{$host}";
