@@ -12,6 +12,7 @@ use App\Jobs\StoreSeoInformation;
 class UrlCheckTest extends TestCase
 {
     use RefreshDatabase;
+
     protected $id;
     protected $name;
     protected $fixture;

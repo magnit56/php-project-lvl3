@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\DB;
 class UrlTest extends TestCase
 {
     use RefreshDatabase;
+
     protected $id;
 
     protected function setUp(): void
