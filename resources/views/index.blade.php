@@ -16,7 +16,7 @@
                     <form action="/urls" method="POST" class="d-flex justify-content-center">
                         {{ csrf_field() }}
                         <input type="hidden">
-                        <input type="text" name="url[name]" value="{{ isset($name) ? $name : '' }}" class="form-control form-control-lg" placeholder="http://www.google.com">
+                        <input type="text" name="name" value="{{ isset($name) ? $name : '' }}" class="form-control form-control-lg" placeholder="http://www.google.com">
                         <button type="submit" class="btn btn-lg btn-primary ml-3 px-5 text-uppercase">Проверить</button>
                     </form>
                 </div>

@@ -40,12 +40,22 @@ class UrlTest extends TestCase
 
     public function testStore()
     {
-        $data = ['name' => 'https://ya.ru'];
-        $request = ['url' => $data];
+        $request = ['name' => 'https://ya.ru'];
+//        $request = ['url' => $data];
         $response = $this->post(route('urls.store'), $request);
         $response->assertSessionHasNoErrors();
         $response->assertRedirect();
-        $this->assertDatabaseHas('urls', $data);
+        $this->assertDatabaseHas('urls', $request);
+    }
+
+    public function testEmptyStore()
+    {
+        $data = ['name' => ''];
+        $request = ['url' => $data];
+        $response = $this->post(route('urls.store'), $request);
+        $response->assertSessionHasErrors('name');
+//        $response->assertSessionHasNoErrors();
+        $response->assertRedirect();
     }
 
     public function testIncorrectStore()
@@ -53,7 +63,6 @@ class UrlTest extends TestCase
         $data = ['name' => 'ya.ru'];
         $request = ['url' => $data];
         $response = $this->post(route('urls.store'), $request);
-//        $response->assertStatus(422);
         $response->assertRedirect();
     }
 

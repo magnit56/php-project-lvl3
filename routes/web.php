@@ -39,11 +39,11 @@ Route::get('/urls', function (Request $request) {
 
 Route::post('/urls', function (Request $request) {
     $validator = Validator::make($request->all(), [
-        'url.name' => 'required|url|max:255',
+        'name' => 'required|url|max:255',
     ]);
     if ($validator->fails()) {
-        $url = $request->input('url');
-        $name = $url['name'];
+//        $name = $request->input('url');
+//        $name = $url['name'];
 
         flash('Некорректный URL')->error();
         return response()
@@ -53,8 +53,8 @@ Route::post('/urls', function (Request $request) {
             ->withInput();
     }
 
-    $url = $request->input('url');
-    $link = $url['name'];
+    $link = $request->input('name');
+//    $link = $url['name'];
     $scheme = parse_url($link, PHP_URL_SCHEME);
     $host = parse_url($link, PHP_URL_HOST);
     $name = "{$scheme}://{$host}";
