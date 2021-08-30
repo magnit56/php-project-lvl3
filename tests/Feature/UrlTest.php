@@ -11,7 +11,7 @@ class UrlTest extends TestCase
 {
     use RefreshDatabase;
 
-    protected $id;
+    protected int $id;
 
     protected function setUp(): void
     {
@@ -27,19 +27,19 @@ class UrlTest extends TestCase
             ->first()->id;
     }
 
-    public function testIndex()
+    public function testIndex(): void
     {
         $response = $this->get(route('urls.index'));
         $response->assertOk();
     }
 
-    public function testCreate()
+    public function testCreate(): void
     {
         $response = $this->get(route('urls.create'));
         $response->assertOk();
     }
 
-    public function testStore()
+    public function testStore(): void
     {
         $data = ['name' => 'https://ya.ru'];
         $request = ['url' => $data];
@@ -49,7 +49,7 @@ class UrlTest extends TestCase
         $this->assertDatabaseHas('urls', $data);
     }
 
-    public function testEmptyStore()
+    public function testEmptyStore(): void
     {
         $data = ['name' => ''];
         $request = ['url' => $data];
@@ -58,7 +58,7 @@ class UrlTest extends TestCase
         $response->assertRedirect();
     }
 
-    public function testIncorrectStore()
+    public function testIncorrectStore(): void
     {
         $data = ['name' => 'ya.ru'];
         $request = ['url' => $data];
@@ -66,7 +66,7 @@ class UrlTest extends TestCase
         $response->assertRedirect();
     }
 
-    public function testShow()
+    public function testShow(): void
     {
         $response = $this->get(route('urls.show', $this->id));
         $response->assertOk();

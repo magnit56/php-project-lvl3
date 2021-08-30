@@ -21,15 +21,15 @@ class StoreSeoInformation implements ShouldQueue
     use Queueable;
     use SerializesModels;
 
-    protected $id;
-    protected $name;
+    protected int $id;
+    protected string $name;
 
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct($id, $name)
+    public function __construct(int $id, string $name)
     {
         $this->id = $id;
         $this->name = $name;
