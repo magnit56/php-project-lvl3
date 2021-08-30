@@ -41,9 +41,11 @@ Route::post('/urls', function (Request $request) {
     $url = $request->input('url');
     $link = $url['name'];
 
-    $validator = Validator::make($request->all(), [
-        'url' => 'array',
-        'url.name' => 'required|url|max:255'
+    $data = ['name' => $link];
+    $validator = Validator::make($data, [
+//        'url' => 'array:name',
+//        'url.name' => 'required|url|max:255'
+        'name' => 'required|url|max:255'
     ]);
     if ($validator->fails()) {
         flash('Некорректный URL')->error();

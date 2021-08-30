@@ -53,7 +53,7 @@ class UrlTest extends TestCase
         $data = ['name' => ''];
         $request = ['url' => $data];
         $response = $this->post(route('urls.store'), $request);
-        $response->assertSessionHasErrors('url.name');
+        $response->assertSessionHasErrors('name');
         $response->assertRedirect();
     }
 
