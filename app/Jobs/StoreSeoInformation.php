@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Http\Client\ConnectionException;
 use Carbon\Carbon;
+use DiDom\Document;
 
 class StoreSeoInformation implements ShouldQueue
 {
@@ -41,6 +42,17 @@ class StoreSeoInformation implements ShouldQueue
         try {
             $response = Http::get($this->name);
             $status = $response->status();
+            $html = $response->body();
+            $document = new Document($html);
+            if (boolval($document->first('h1'))) {
+                $h1 = ($document->first('h1')->innerHtml());
+            }
+            if (boolval($document->first('meta[name=keywords]'))) {
+                $keywords = ($document->first('meta[name=keywords]')->getAttribute('content'));
+            }
+            if (boolval($document->first('meta[name=description]'))) {
+                $description = ($document->first('meta[name=description]')->getAttribute('content'));
+            }
         } catch (ConnectionException) {
             $status = 0;
         }
@@ -50,9 +62,9 @@ class StoreSeoInformation implements ShouldQueue
             [
                 'url_id' => $this->id,
                 'status_code' => $status,
-                'h1' => 'h1',
-                'keywords' => 'keyword',
-                'description' => 'description',
+                'h1' => $h1 ?? '',
+                'keywords' => $keywords ?? '',
+                'description' => $description ?? '',
                 'created_at' => $now,
                 'updated_at' => $now,
             ]

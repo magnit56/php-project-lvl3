@@ -17,9 +17,9 @@ class UrlChecks extends Migration
             $table->bigIncrements('id');
             $table->bigInteger('url_id');
             $table->bigInteger('status_code');
-            $table->string('h1');
-            $table->string('keywords');
-            $table->string('description');
+            $table->longText('h1')->nullable();
+            $table->longText('keywords')->nullable();
+            $table->longText('description')->nullable();
             $table->timestamps();
         });
     }

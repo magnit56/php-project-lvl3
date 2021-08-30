@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="All about sport">
+    <meta name="keywords" content="Sport, football, hockey">
+    <title>Title</title>
+</head>
+<body>
+<div>
+    <h1 class="super-top__title">Olympic games news</h1>
+</div>
+</body>
+</html>

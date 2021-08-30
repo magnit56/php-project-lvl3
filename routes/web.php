@@ -13,6 +13,9 @@ Route::get('/urls/{id}', function (Request $request, $id) {
     $site = DB::table('urls')
         ->where('id', $id)
         ->first();
+    if (!$site) {
+        abort(404);
+    }
     $checks = DB::table('url_checks')
         ->where('url_id', $id)
         ->get();
@@ -34,7 +37,7 @@ Route::get('/urls', function (Request $request) {
     return view('urls', ['sites' => $sites, 'checks' => $checks]);
 })->name('urls.index');
 
-Route::post('/', function (Request $request) {
+Route::post('/urls', function (Request $request) {
     $validator = Validator::make($request->all(), [
         'url.name' => 'required|url|max:255',
     ]);
@@ -43,8 +46,9 @@ Route::post('/', function (Request $request) {
         $name = $url['name'];
 
         flash('Некорректный URL')->error();
-        return redirect()
-            ->route('urls.create', ['name' => $name])
+        return response()
+            ->redirectToRoute('urls.create')
+//            ->setStatusCode(422)
             ->withErrors($validator)
             ->withInput();
     }
@@ -65,17 +69,13 @@ Route::post('/', function (Request $request) {
         return redirect("urls/{$id}");
     }
 
-    DB::table('urls')->insert(
+    $id = DB::table('urls')->insertGetId(
         [
             'name' => $name,
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
         ]
     );
-
-    $id = DB::table('urls')
-        ->where('name', $name)
-        ->first()->id;
 
     flash('Сайт успешно добавлен')->success();
     return redirect("/urls/{$id}");
@@ -85,6 +85,9 @@ Route::post('/urls/{id}/checks', function (Request $request, $id) {
     $site = DB::table('urls')
         ->where('id', $id)
         ->first();
+    if (!$site) {
+        abort(404);
+    }
     StoreSeoInformation::dispatch($site->id, $site->name);
     flash('Страница добавлена в очередь на проверку')->success();
     return redirect("/urls/{$id}");
