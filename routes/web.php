@@ -37,7 +37,7 @@ Route::get('/urls', function (Request $request) {
     return view('urls', ['sites' => $sites, 'checks' => $checks]);
 })->name('urls.index');
 
-Route::post('/', function (Request $request) {
+Route::post('/urls', function (Request $request) {
     $validator = Validator::make($request->all(), [
         'url.name' => 'required|url|max:255',
     ]);
@@ -47,8 +47,8 @@ Route::post('/', function (Request $request) {
 
         flash('Некорректный URL')->error();
         return response()
-            ->redirectToRoute('urls.create', ['name' => $name])
-            ->setStatusCode(422)
+            ->redirectToRoute('urls.create')
+//            ->setStatusCode(422)
             ->withErrors($validator)
             ->withInput();
     }

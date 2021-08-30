@@ -53,7 +53,8 @@ class UrlTest extends TestCase
         $data = ['name' => 'ya.ru'];
         $request = ['url' => $data];
         $response = $this->post(route('urls.store'), $request);
-        $response->assertStatus(422);
+//        $response->assertStatus(422);
+        $response->assertRedirect();
     }
 
     public function testShow()
