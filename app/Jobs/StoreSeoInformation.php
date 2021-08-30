@@ -16,7 +16,10 @@ use DiDom\Document;
 
 class StoreSeoInformation implements ShouldQueue
 {
-    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+    use Dispatchable;
+    use InteractsWithQueue;
+    use Queueable;
+    use SerializesModels;
 
     protected $id;
     protected $name;
