@@ -13,9 +13,9 @@ class UrlCheckTest extends TestCase
 {
     use RefreshDatabase;
 
-    protected $id;
-    protected $name;
-    protected $fixture;
+    protected mixed $id;
+    protected mixed $name;
+    protected mixed $fixture;
 
     protected function setUp(): void
     {
@@ -26,7 +26,7 @@ class UrlCheckTest extends TestCase
         $this->fixture = './tests/fixtures/sportscom';
     }
 
-    public function testStore()
+    public function testStore(): void
     {
         Queue::fake();
 
@@ -37,12 +37,12 @@ class UrlCheckTest extends TestCase
         Queue::assertPushed(StoreSeoInformation::class);
     }
 
-    public function testStoreSeoInformation()
+    public function testStoreSeoInformation(): void
     {
-        $html = file_get_contents(realpath($this->fixture));
+        $html = file_get_contents(strval(realpath($this->fixture)));
 
         Http::fake([
-            "{$this->name}" => Http::response($html, 200),
+            "{$this->name}" => Http::response(strval($html), 200),
         ]);
         $data = [
             'id' => 1,

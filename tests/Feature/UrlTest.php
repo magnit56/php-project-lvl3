@@ -11,7 +11,7 @@ class UrlTest extends TestCase
 {
     use RefreshDatabase;
 
-    protected int $id;
+    protected mixed $id;
 
     protected function setUp(): void
     {
