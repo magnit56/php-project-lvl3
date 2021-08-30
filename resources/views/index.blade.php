@@ -13,7 +13,7 @@
                 <div class="col-12 col-md-10 col-lg-8 mx-auto text-white">
                     <h1 class="display-3">Анализатор страниц</h1>
                     <p class="lead">Бесплатно проверяйте сайты на SEO пригодность</p>
-                    <form action="/" method="POST" class="d-flex justify-content-center">
+                    <form action="/urls" method="POST" class="d-flex justify-content-center">
                         {{ csrf_field() }}
                         <input type="hidden">
                         <input type="text" name="url[name]" value="{{ isset($name) ? $name : '' }}" class="form-control form-control-lg" placeholder="http://www.google.com">
