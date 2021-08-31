@@ -5,15 +5,15 @@ use Illuminate\Http\Request;
 use Carbon\Carbon;
 use App\Jobs\StoreSeoInformation;
 
-Route::get('/', function (Request $request, $name = '') {
+Route::get('/', function (Request $request, $name = ''): Illuminate\View\View {
     return view('index', ['name' => $name]);
 })->name('urls.create');
 
-Route::get('/urls/{id}', function (Request $request, $id) {
+Route::get('/urls/{id}', function (Request $request, $id): Illuminate\View\View {
     $site = DB::table('urls')
         ->where('id', $id)
         ->first();
-    if (!$site) {
+    if (!boolval($site)) {
         abort(404);
     }
     $checks = DB::table('url_checks')
@@ -26,7 +26,7 @@ Route::get('/urls/{id}', function (Request $request, $id) {
     ]);
 })->name('urls.show');
 
-Route::get('/urls', function (Request $request) {
+Route::get('/urls', function (Request $request): Illuminate\View\View {
     $sites = DB::table('urls')->paginate(10);
     $checks = DB::table('url_checks')
         ->whereIn('url_id', $sites->pluck('id'))
@@ -37,7 +37,7 @@ Route::get('/urls', function (Request $request) {
     return view('urls', ['sites' => $sites, 'checks' => $checks]);
 })->name('urls.index');
 
-Route::post('/urls', function (Request $request) {
+Route::post('/urls', function (Request $request): Illuminate\Http\RedirectResponse {
     $url = $request->input('url');
     $link = $url['name'];
 
@@ -81,11 +81,11 @@ Route::post('/urls', function (Request $request) {
     return redirect("/urls/{$id}");
 })->name('urls.store');
 
-Route::post('/urls/{id}/checks', function (Request $request, $id) {
+Route::post('/urls/{id}/checks', function (Request $request, $id): Illuminate\Http\RedirectResponse {
     $site = DB::table('urls')
         ->where('id', $id)
         ->first();
-    if (!$site) {
+    if (!boolval($site)) {
         abort(404);
     }
     StoreSeoInformation::dispatch($site->id, $site->name);
