@@ -48,9 +48,9 @@ class StoreSeoInformation implements ShouldQueue
             $html = $response->body();
             $document = new Document($html);
 
-            $h1 = ($document->has('h1')) ? ($document->first('h1')->innerHtml()) : '';
-            $keywords = ($document->has('meta[name=keywords]')) ? ($document->first('meta[name=keywords]')->getAttribute('content')) : '';
-            $description = ($document->has('meta[name=description]')) ? ($document->first('meta[name=description]')->getAttribute('content')) : '';
+            $h1 = ($document->has('h1')) ? optional($document->first('h1'))->innerHtml() : '';
+            $keywords = ($document->has('meta[name=keywords]')) ? optional($document->first('meta[name=keywords]'))->getAttribute('content') : '';
+            $description = ($document->has('meta[name=description]')) ? optional($document->first('meta[name=description]'))->getAttribute('content') : '';
         } catch (ConnectionException) {
             $status = 0;
         }
