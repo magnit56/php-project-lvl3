@@ -22,9 +22,9 @@ class UrlTest extends TestCase
                 'name' => $name,
             ]
         );
-        $this->id = DB::table('urls')
+        $this->id = optional(DB::table('urls')
             ->where('name', $name)
-            ->first()->id;
+            ->first())->id;
     }
 
     public function testIndex(): void

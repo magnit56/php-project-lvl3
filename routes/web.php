@@ -43,8 +43,6 @@ Route::post('/urls', function (Request $request): Illuminate\Http\RedirectRespon
 
     $data = ['name' => $link];
     $validator = Validator::make($data, [
-//        'url' => 'array:name',
-//        'url.name' => 'required|url|max:255'
         'name' => 'required|url|max:255'
     ]);
     if ($validator->fails()) {
@@ -61,9 +59,9 @@ Route::post('/urls', function (Request $request): Illuminate\Http\RedirectRespon
 
     $user = DB::table('urls')->where('name', $name)->get();
     if ($user->count() > 0) {
-        $id = DB::table('urls')
+        $id = optional(DB::table('urls')
             ->where('name', $name)
-            ->first()->id;
+            ->first())->id;
 
         flash('Сайт уже был добавлен ранее')->warning();
         return redirect("urls/{$id}");
@@ -88,7 +86,7 @@ Route::post('/urls/{id}/checks', function (Request $request, $id): Illuminate\Ht
     if (!boolval($site)) {
         abort(404);
     }
-    StoreSeoInformation::dispatch($site->id, $site->name);
+    StoreSeoInformation::dispatch(optional($site)->id, optional($site)->name);
     flash('Страница добавлена в очередь на проверку')->success();
     return redirect("/urls/{$id}");
 })->name('url_checks.store');
